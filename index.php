@@ -84,12 +84,21 @@ VALUES('$sorte', '$taille', '$prix')";
 
 
 
-function UpdateClient($connectedUser, $pointsARentrer){
+function RajoutePoints($connectedUser, $pointsARentrer){
     try{
         $sql = "UPDATE client SET points = '$pointsARentrer' WHERE id = '$connectedUser' ";
         connection()->query($sql);
     } catch (PDOException $exception) {
         die('could not update table');
+    }
+}
+
+function UpdateClient($connectedUser, $nom, $courriel, $motDePasse, $telephone, $addresse){
+    try{
+        $sql = "UPDATE client SET nom = '$nom', courriel = '$courriel', motDePasse = '$motDePasse', telephone = '$telephone', addresse = '$addresse' WHERE id = '$connectedUser'";
+        connection()->query($sql);
+    }catch (PDOException $exception){
+        die('could not update user');
     }
 }
 
@@ -114,12 +123,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
          * Permet d'update les points de l'utilisateur
          * A besoin du id de l'utilisateur connecte ainsi que le nombre de points a rentrer
          */
-    } else if ($_POST['action'] == 'updateClient') {
+    } else if ($_POST['action'] == 'insererPoints') {
         $connectedUser = $_POST['connectedUser'];
         $pointsARentrer = $_POST['points'];
 
         if (isset($connectedUser, $pointsARentrer)) {
-            UpdateClient($connectedUser, $pointsARentrer);
+            RajoutePoints($connectedUser, $pointsARentrer);
             echo 'User has been updated succesfully';
         } else {
             echo 'user has not been updated';
@@ -147,6 +156,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             CreerCommande($nomClient, $montantCommande, $dateCommande, $clientId, $itemId);
         }else {
             echo "an error has occured in the creation of the order";
+        }
+    }else if($_POST['action'] == 'updateClient'){
+        $utilisateurConnected = $_POST['userConnected'];
+        $nomClientUpdate = $_POST['nom'];
+        $telephoneUpdate = $_POST['telephone'];
+        $courrielUpdate = $_POST['telephone'];
+        $addresseUpdate = $_POST['addresse'];
+        $motDePasseUpdate = $_POST['motDePasse'];
+        if(isset($utilisateurConnected, $nomClientUpdate, $telephoneUpdate, $courrielUpdate, $addresseUpdate, $motDePasseUpdate)){
+            UpdateClient($utilisateurConnected, $nomClientUpdate, $telephoneUpdate, $courrielUpdate, $addresseUpdate, $motDePasseUpdate);
+        }else {
+            echo "an error has occured in the update of the client";
         }
     }
 }
