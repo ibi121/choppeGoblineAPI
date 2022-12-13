@@ -29,10 +29,11 @@ function connection()
 
 function InsererDansLaBd($courriel, $motDePasse, $addresse, $nom, $telephone)
 {
+    $points = 0;
     try {
 
         $sql = "INSERT INTO client(nom, courriel, motDePasse, telephone, addresse)
-VALUES('$nom','$courriel', '$motDePasse', '$addresse', '$telephone', '0')";
+VALUES('$nom','$courriel', '$motDePasse', '$addresse', '$telephone', 0)";
         if (connection()->query($sql) === TRUE) {
             echo "nouvel utilisateur a bel et bien ete inserer";
         }
