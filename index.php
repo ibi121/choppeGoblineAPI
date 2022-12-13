@@ -161,11 +161,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $utilisateurConnected = $_POST['userConnected'];
         $nomClientUpdate = $_POST['nom'];
         $telephoneUpdate = $_POST['telephone'];
-        $courrielUpdate = $_POST['courriel'];
+        $courrielUpdate = $_POST['telephone'];
         $addresseUpdate = $_POST['addresse'];
         $motDePasseUpdate = $_POST['motDePasse'];
         if(isset($utilisateurConnected, $nomClientUpdate, $telephoneUpdate, $courrielUpdate, $addresseUpdate, $motDePasseUpdate)){
-            UpdateClient($utilisateurConnected, $nomClientUpdate, $telephoneUpdate, $courrielUpdate, $addresseUpdate, $motDePasseUpdate);
+            UpdateClient($utilisateurConnected, $nomClientUpdate, $courrielUpdate, $motDePasseUpdate, $telephoneUpdate, $addresseUpdate);
         }else {
             echo "an error has occured in the update of the client";
         }
