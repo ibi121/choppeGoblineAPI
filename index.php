@@ -27,12 +27,12 @@ function connection()
 }
 
 
-function InsererDansLaBd($courriel, $motDePasse, $addresse, $nom, $telephone, $points)
+function InsererDansLaBd($courriel, $motDePasse, $addresse, $nom, $telephone)
 {
     try {
 
-        $sql = "INSERT INTO client(nom, courriel, motDePasse, telephone, addresse, points)
-VALUES('$nom','$courriel', '$motDePasse', '$addresse', '$telephone', '$points')";
+        $sql = "INSERT INTO client(nom, courriel, motDePasse, telephone, addresse)
+VALUES('$nom','$courriel', '$motDePasse', '$addresse', '$telephone', '0')";
         if (connection()->query($sql) === TRUE) {
             echo "nouvel utilisateur a bel et bien ete inserer";
         }
@@ -113,10 +113,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $numeroDeTelephonePost = $_POST["telephone"];
         $nomPost = $_POST["nom"];
         $addressePost = $_POST['addresse'];
-        $pointsPost = $_POST['points'];
 
-        if (isset($courrielPost, $motDePassePost, $numeroDeTelephonePost, $nomPost, $addressePost, $pointsPost)) {
-            InsererDansLaBd($courrielPost, $motDePassePost, $numeroDeTelephonePost, $nomPost, $addressePost, $pointsPost);
+        if (isset($courrielPost, $motDePassePost, $numeroDeTelephonePost, $nomPost, $addressePost)) {
+            InsererDansLaBd($courrielPost, $motDePassePost, $numeroDeTelephonePost, $nomPost, $addressePost);
             echo "a new user has been set into the database. thank you";
         }
         /**
